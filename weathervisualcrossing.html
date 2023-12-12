@@ -1,0 +1,80 @@
+<div class="container">
+  <img src="img/service.png" alt="Image" width="88" height="60" class="mr-2">
+  <h4 style="display: inline-block;">Call the current weather data with the Visual Crossing</h4>
+  <div class="row">
+    <!-- Rest of your content here -->
+    <div class="col-md-4">
+      <!-- Card 1: Making a Request -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h5 class="my-0 font-weight-normal">Request Body</h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>
+            <div class="form-outline">
+            <textarea class="form-control" id="jsonBody" name="jsonBody" rows="10" readonly>
+{
+  "location": "Dublin,IE",
+  "datestart": "2003-01-01",
+  "dateend": "2003-01-07",
+  "unitGroup": "us",
+  "key": "LRSG6Y8MARF559577C7YVTX4B"
+}
+    </textarea>
+                <label class="form-label" for="jsonBody">You must provide the request body in JSON format</label>
+            </div>
+            </li>
+          </ul>
+          <hr>
+             <button type="button" class="btn btn-lg btn-block btn-primary" onclick="generateFormFields(JSON.parse(document.getElementById('jsonBody').value))">Get Parameters</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <!-- Card 2: Set parameters -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h5 class="my-0 font-weight-normal">Set Parameters</h5>
+        </div>
+        <div class="card-body">
+
+         <form id="jsonForm">
+          <ul class="list-unstyled mt-3 mb-4" id="formFieldsList"></ul>
+          </form>
+           <hr>
+         <button type="button" class="btn btn-lg btn-block btn-danger" onclick="sendVisualCrossingWeatherRequest()" id="serviceButton">
+        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" id="serviceSpinner" style="display: none;"></span>
+            <span id="serviceButtonText">Run Service</span>
+        </button>
+
+
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="col">
+      <!-- Card 3: Visualization and Exploration -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h5 class="my-0 font-weight-normal">API response</h5>
+        </div>
+        <div class="card-body">
+           <ul class="list-unstyled mt-3 mb-4">
+            <li>
+              <div id="responseTable"></div>
+            </li>
+          </ul>
+
+          <hr>
+          <button type="button" class="btn btn-lg btn-block btn-info" onclick="SavetoBucket()">Save to Bucket</button>
+          <button type="button" class="btn btn-lg btn-block btn-secondary" onclick="DownloadJSON()" style="margin-top: 10px;">Download JSON</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,84 @@
+<!-- Tasks Table with Start/Stop Button -->
+ <h5 style="color: #2980B7; margin-top: 10px;">Tasks</h5>
+<table class="table table-striped table-bordered">
+    <thead style="background-color: #2980B7; color: #ffffff;">
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Date</th>
+            <th>Owner</th>
+            <th>%</th>
+            <th>Time tracking</th>
+            <th>Status</th> <!-- New column for buttons -->
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Example rows -->
+        <tr>
+            <td>Spatial Data Quality Service</td>
+            <td>Quality Assurance</td>
+            <td>2023-12-15</td>
+            <td>John Doe</td>
+            <td>70%</td>
+            <td>3h 15m</td>
+            <td>
+                <button type="button" class="btn btn-danger btn-sm">Stop</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Object Detection on Satellite Images</td>
+            <td>Image Analysis</td>
+            <td>2023-12-16</td>
+            <td>Jane Smith</td>
+            <td> </td>
+            <td>4h 30m</td>
+            <td>
+                 <button type="button" class="btn btn-success btn-sm">Start</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Flood Mapping Service</td>
+            <td>Environmental Monitoring</td>
+            <td>2023-12-17</td>
+            <td>Robert Johnson</td>
+            <td> </td>
+            <td>2h 45m</td>
+            <td>
+                <button type="button" class="btn btn-success btn-sm">Start</button>
+            </td>
+        </tr>
+        <!-- Add more rows as needed -->
+    </tbody>
+</table>
+
+
+<!-- Alerts Table -->
+<h5 style="color: #FFB668;">Alerts</h5>
+<table class="table table-striped table-bordered">
+    <thead style="background-color: #FFB668; color: #ffffff;">
+        <tr>
+            <th>Priority</th>
+            <th>Message</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Example Geoportal messages -->
+        <tr>
+            <td><span class="badge badge-danger">Critical</span></td>
+            <td>Server failure detected. Geoportal services impacted.</td>
+            <td>2023-12-15 10:30 AM</td>
+        </tr>
+        <tr>
+            <td><span class="badge badge-warning">Moderate</span></td>
+            <td>Increased traffic on the Geoportal. Performance degradation observed.</td>
+            <td>2023-12-16 02:45 PM</td>
+        </tr>
+        <tr>
+            <td><span class="badge badge-success">Low</span></td>
+            <td>New dataset available for analysis. Explore the latest satellite imagery.</td>
+            <td>2023-12-17 08:00 PM</td>
+        </tr>
+        <!-- Add more rows as needed -->
+    </tbody>
+</table>

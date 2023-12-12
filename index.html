@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/microservices.css">
+    <title>CAMEO - Landing Page</title>
+    <link rel="shortcut icon" type="image/png" href="img/favicon32.png"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/mapping.css">
+</head>
+<body>
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="https://www.cameoplatform.ie/" target="_blank">
+        <img src="img/CAMEO_TRANSPARENT.png" alt="Company Logo" width="150" height="60"
+             class="d-inline-block align-text-top">
+    </a>
+    <!-- Additional content in the middle -->
+    <div class="navbar-title">
+        <h4 class="navbar-title-text" style="color: white;">Creating an Architecture for Manipulating Earth Observation
+            data (CAMEO)</h4>
+    </div>
+    <div class="navbar-nav">
+        <div class="nav-item text-nowrap">
+            <a class="nav-link px-3" href="#">
+                <img src="img/usericon.png" alt="User Icon" class="user-icon" width="40" height="40"> asmirb | Sign out
+            </a>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 bg-light d-none d-md-block sidebar">
+            <div class="left-sidebar">
+                <ul class="nav flex-column sidebar-nav">
+                    <li class="nav-item" style="margin-top: 10px;">
+                        <a class="nav-link" href="#" onclick="loadHome()">
+                            <img src="img/home1.png" alt="Home Icon" width="32" height="32">
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="loadMapExplorer()">
+                            <img src="img/mapmarker.png" alt="Map Explorer Icon" width="32" height="32">
+                            Map Explorer
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="loadMicroservices()">
+                            <img src="img/services.png" alt="Services Catalogue Icon" width="32" height="32">
+                            Services Catalogue
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="loadDAG()">
+                            <img src="img/dag.png" alt="DAG Creation Icon" width="32" height="32">
+                            DAG Creation
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="loadMLOps()">
+                            <img src="img/mlops.png" alt="MLOps Icon" width="32" height="32">
+                            MLOps
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="loadTaskManagement()">
+                            <img src="img/notifications.png" alt="Task Management Icon" width="32" height="32">
+                            Task Management
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="loadUserManagement()">
+                            <img src="img/admin.png" alt="Admin Icon" width="32" height="32">
+                            User Management
+                        </a>
+                    </li>
+                </ul>
+
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center"
+                        style="background-color:#DBE3F3;">
+                        <strong>My Bucket</strong>
+                        <label for="file-upload" class="custom-file-upload">
+                            <img src="img/listenlayer.png" alt="Tasks Image" style="max-width: 40px; max-height: 40px;">
+                        </label>
+                        <input id="file-upload" type="file" style="display: none;">
+                    </li>
+                    <li class="list-group-item">
+                        <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">Flood report</h6>
+                            <small class="text-body-secondary">3 days ago</small>
+                        </div>
+                        <small>cvs file</small>
+                    </li>
+                    <li class="list-group-item">
+                        <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">S1A_IW_SLC__1SDV</h6>
+                            <small class="text-body-secondary">12/10/2023</small>
+                        </div>
+                        <small>zip file</small>
+                    </li>
+                    <li class="list-group-item">
+                        <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">Limerick</h6>
+                            <small class="text-body-secondary">11/09/2023</small>
+                        </div>
+                        <small>JSON file</small>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <!-- Mjesto gdje ćemo dinamički uključiti HTML datoteke -->
+            <div id="dynamicContent"></div>
+        </main>
+    </div>
+</div>
+<!-- Add this script tag before your custom JavaScript code -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="js/mapping.js"></script>
+<script src="js/microservices.js"></script> <!-- Link to your JavaScript file -->
+<script src="js/home.js"></script>
+</body>
+</html>

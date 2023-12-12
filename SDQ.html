@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/microservices.css"> <!-- Link to your CSS file -->
+    <title>Multi-Step Form with Bootstrap Cards</title>
+</head>
+<body>
+
+<header class="mb-4">
+  <div class="collapse bg-dark" id="navbarHeader">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 col-md-7 py-4">
+          <h4 class="text-white">Description</h4>
+          <p class="text-muted">Implementation of SDQ micro-service with CAMEO will provide an evaluation of data quality score for GIS data.
+            The service will ensure the evaluation of:
+            Precision
+            Consistency
+            Completeness
+            Accuracy
+            Timeliness</p>
+        </div>
+        <div class="col-sm-4 offset-md-1 py-4">
+          <h4 class="text-white">Info</h4>
+          <ul class="list-unstyled">
+            <li class="text-muted">Code Language:<strong>Python</strong> </li>
+            <li class="text-muted">Created Date:<strong> 02/11/2023</strong></li>
+            <li class="text-muted">Version Current:<strong> 3</strong></li>
+            <li class="text-muted">Number of Versions:<strong> 5</strong></li>
+            <li class="text-muted">Owner Name: <a href="mailto:punit.gupta@ucd.ie" class="text-muted"><strong>UCD</strong></a></li>
+            <li class="text-muted">Dependencies:<strong> none</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="navbar navbar-dark bg-dark box-shadow">
+    <div class="container d-flex justify-content-between">
+      <a href="#" class="navbar-brand d-flex align-items-center">
+        <img src="img/service.png" alt="Image" width="88" height="60" class="mr-2">
+        <strong> Spatial Data Quality Service</strong>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="row">
+    <!-- Rest of your content here -->
+    <div class="col-md-3">
+      <!-- Card 1: Data Selection -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">Data Selection</h4>
+        </div>
+        <div class="card-body">
+          <!-- Add the file upload section here -->
+          <div id="drop-zone">
+            <!-- Updated Bootstrap button -->
+            <div id="clickHere" class="btn btn-primary">
+              Upload Files <i class="fa fa-upload"></i>
+              <input type="file" name="file" id="file" />
+            </div>
+            <div id='filename'></div>
+          </div>
+          <!-- End of the file upload section -->
+
+
+          <h4 class="card-title pricing-card-title"> Parameters</h4> <!-- Modify pricing as needed -->
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>Feature 1</li>
+            <li>Feature 2</li>
+            <li>Feature 3</li>
+            <li>Feature 4</li>
+          </ul>
+          <button type="button" class="btn btn-lg btn-block btn-secondary"> Next</button>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <!-- Card 2: Metadata Validation -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">Metadata Validation</h4>
+        </div>
+        <div class="card-body">
+          <h4 class="card-title pricing-card-title"> Parameters/Figures</h4> <!-- Modify pricing as needed -->
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>Feature 1</li>
+            <li>Feature 2</li>
+            <li>Feature 3</li>
+            <li>Feature 4</li>
+          </ul>
+         <button type="button" class="btn btn-lg btn-block btn-primary"> Next</button>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <!-- Card 3: Preprocessing and Enhancement -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">Preprocessing and Enhancement</h4>
+        </div>
+        <div class="card-body">
+          <h4 class="card-title pricing-card-title"> Parameters/Figures</h4> <!-- Modify pricing as needed -->
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>Feature 1</li>
+            <li>Feature 2</li>
+            <li>Feature 3</li>
+            <li>Feature 4</li>
+          </ul>
+          <button type="button" class="btn btn-lg btn-block btn-danger"> Run</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <!-- Card 4: Visualization and Exploration -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">Visualization and Exploration</h4>
+        </div>
+        <div class="card-body">
+          <h4 class="card-title pricing-card-title"> SDQ measures</h4> <!-- Modify pricing as needed -->
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>Precision</li>
+            <li>Consistency</li>
+            <li>Completeness</li>
+            <li>Accuracy</li>
+          </ul>
+          <button type="button" class="btn btn-lg btn-block btn-outline-primary"> View on the map</button>
+          <button type="button" class="btn btn-lg btn-block btn-outline-primary"> Download GeoJSON</button>
+
+            <button type="button" class="btn btn-lg btn-block btn-warning"> Warning</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="js/microservices.js"></script> <!-- Link to your JavaScript file -->
+</body>
+</html>
