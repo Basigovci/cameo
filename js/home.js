@@ -13,7 +13,8 @@
         includeHTML('home.html');
     }
      function loadMultiStepForm() {
-        includeHTML('multistepform.html');
+       includeHTML('multistepform.html');
+       //includeHTML('XXX.html');
     }
     function loadWeatherVisualcrossing() {
         includeHTML('weathervisualcrossing.html');

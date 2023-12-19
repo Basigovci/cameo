@@ -305,4 +305,7 @@ function sendWeatherOpenWeatherMapAPI() {
     });
 }
 
+function HelloCameo() {
+     alert("**C A M E O**");
+ }
 
