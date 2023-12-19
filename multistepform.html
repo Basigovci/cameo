@@ -1,107 +1,128 @@
-<div class="row" style="margin-top: 10px; margin-bottom: 10px;">
-    <div class="col">
-        <img src="img/service.png" alt="Image" width="88" height="60" class="mr-2">
-        <h4 style="display: inline-block;">Advance Micro Frontend Template</h4>
+
+<header class="mb-4">
+  <div class="collapse bg-light" id="navbarHeader">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 col-md-7 py-4">
+          <h4 class="text-muted">Description</h4>
+          <p class="text-muted">Implementation of SDQ micro-service with CAMEO will provide an evaluation of data quality score for GIS data.
+            The service will ensure the evaluation of:
+            Precision
+            Consistency
+            Completeness
+            Accuracy
+            Timeliness</p>
+        </div>
+        <div class="col-sm-4 offset-md-1 py-4">
+          <h4 class="text-muted">Info</h4>
+          <ul class="list-unstyled">
+            <li class="text-muted">Code Language:<strong>Python</strong> </li>
+            <li class="text-muted">Created Date:<strong> 02/11/2023</strong></li>
+            <li class="text-muted">Version Current:<strong> 3</strong></li>
+            <li class="text-muted">Number of Versions:<strong> 5</strong></li>
+            <li class="text-muted">Owner Name: <a href="mailto:punit.gupta@ucd.ie" class="text-muted"><strong>UCD</strong></a></li>
+            <li class="text-muted">Dependencies:<strong> none</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="navbar navbar-light bg-light box-shadow">
+    <div class="container d-flex justify-content-between">
+        <a href="#" class="navbar-brand d-flex align-items-center">
+            <img src="img/service.png" alt="Image" width="88" height="60" class="mr-2">
+            <strong> Advance Micro Frontend Template - Spatial Data Quality Service</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </div>
 </div>
+
+</header>
 
 
 <div class="container">
-    <div class="row">
-        <!-- Rest of your content here -->
-        <div class="col-md-3">
-            <!-- Card 1: Data Selection -->
-            <div class="card mb-4 shadow-sm">
-                <div class="card-header">
-                    <h5 class="my-0 font-weight-normal">Data Selection</h5>
-                </div>
-                <div class="card-body">
-                    <!-- Add the file upload section here -->
-                    <div id="drop-zone">
-    <!-- Updated Bootstrap button -->
-    <div id="clickHere" class="btn btn-primary">
-        Upload Files <i class="fa fa-upload"></i>
-        <input type="file" name="file" id="file" />
+  <div class="row">
+
+    <!-- Rest of your content here -->
+    <div class="col-md-3">
+      <!-- Card 1: Making a Request -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h5 class="my-0 font-weight-normal">Request Body</h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>
+            <div class="form-outline">
+            <textarea class="form-control" id="jsonBody" name="jsonBody" rows="10">
+{
+  "P1": "V1",
+  "P2": "V2",
+  "P3": "V3"
+}
+    </textarea>
+            <label class="form-label" for="jsonBody">You must provide the request body in JSON format</label>
+            </div>
+            </li>
+          </ul>
+          <hr>
+             <button type="button" class="btn btn-lg btn-block btn-primary" onclick="generateFormFields(JSON.parse(document.getElementById('jsonBody').value))">Get Parameters</button>
+        </div>
+      </div>
     </div>
-    <div id='filename'></div>
-</div>
 
-                    <!-- End of the file upload section -->
-
-
-                    <h5 class="card-title pricing-card-title"> Parameters</h5> <!-- Modify pricing as needed -->
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>Feature 1</li>
-                        <li>Feature 2</li>
-                        <li>Feature 3</li>
-                        <li>Feature 4</li>
-                    </ul>
-                    <button type="button" class="btn btn-lg btn-block btn-secondary"> Next</button>
-
-                </div>
-            </div>
+    <div class="col-md-3">
+      <!-- Card 2: Set parameters -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h5 class="my-0 font-weight-normal">Set Parameters</h5>
         </div>
-
-        <div class="col-md-3">
-            <!-- Card 2: Metadata Validation -->
-            <div class="card mb-4 shadow-sm">
-                <div class="card-header">
-                    <h5 class="my-0 font-weight-normal">Metadata Validation</h5>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title pricing-card-title"> Parameters/Figures</h5> <!-- Modify pricing as needed -->
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>Feature 1</li>
-                        <li>Feature 2</li>
-                        <li>Feature 3</li>
-                        <li>Feature 4</li>
-                    </ul>
-                    <button type="button" class="btn btn-lg btn-block btn-primary"> Next</button>
-
-                </div>
+        <div class="card-body">
+        <div id="drop-zone">
+            <!-- Updated Bootstrap button -->
+            <div id="clickHere" class="btn btn-primary">
+              Upload Files <i class="fa fa-upload"></i>
+              <input type="file" name="file" id="file" />
             </div>
+            <div id='filename'></div>
+          </div>
+         <form id="jsonForm">
+          <ul class="list-unstyled mt-3 mb-4" id="formFieldsList"></ul>
+          </form>
+           <hr>
+         <button type="button" class="btn btn-lg btn-block btn-danger" onclick="HelloCameo()" id="serviceButton">
+  <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" id="serviceSpinner" style="display: none;"></span>
+  <span id="serviceButtonText">Run Service</span>
+</button>
+
+
         </div>
-
-        <div class="col-md-3">
-            <!-- Card 3: Preprocessing and Enhancement -->
-            <div class="card mb-4 shadow-sm">
-                <div class="card-header">
-                    <h5 class="my-0 font-weight-normal">Preprocessing and Enhancement</h5>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title pricing-card-title"> Parameters/Figures</h5> <!-- Modify pricing as needed -->
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>Feature 1</li>
-                        <li>Feature 2</li>
-                        <li>Feature 3</li>
-                        <li>Feature 4</li>
-                    </ul>
-                    <button type="button" class="btn btn-lg btn-block btn-danger"> Run</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <!-- Card 4: Visualization and Exploration -->
-            <div class="card mb-4 shadow-sm">
-                <div class="card-header">
-                    <h5 class="my-0 font-weight-normal">Visualization and Exploration</h5>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title pricing-card-title"> SDQ measures</h5> <!-- Modify pricing as needed -->
-                    <ul class="list-unstyled mt-3 mb-4">
-                        <li>Precision</li>
-                        <li>Consistency</li>
-                        <li>Completeness</li>
-                        <li>Accuracy</li>
-                    </ul>
-                    <button type="button" class="btn btn-lg btn-block btn-outline-primary"> View on the map</button>
-                    <button type="button" class="btn btn-lg btn-block btn-outline-primary"> Download GeoJSON</button>
-
-                    <button type="button" class="btn btn-lg btn-block btn-warning"> Warning</button>
-
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
+
+
+
+     <div class="col-md-4">
+      <!-- Card 3: Visualization and Exploration -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h5 class="my-0 font-weight-normal">API response</h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>
+              <div id="responseTable"></div>
+            </li>
+          </ul>
+
+          <hr>
+          <button type="button" class="btn btn-lg btn-block btn-outline-primary" onclick="HelloCameo()"> Map View</button>
+          <button type="button" class="btn btn-lg btn-block btn-outline-info" onclick="HelloCameo()" style="margin-top: 10px;">Save to Bucket</button>
+          <button type="button" class="btn btn-lg btn-block btn-outline-secondary" onclick="HelloCameo()" style="margin-top: 10px;">Download</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
