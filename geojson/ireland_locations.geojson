@@ -1,0 +1,83 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-6.260, 53.349]
+      },
+      "properties": {
+        "type": "flood",
+        "severity": "moderate",
+        "description": "Flooding near Dublin River",
+        "date": "20/12/2023"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-7.320, 52.250]
+      },
+      "properties": {
+        "type": "fire",
+        "severity": "high",
+        "description": "Forest fire in County Kildare",
+        "date": "21/12/2023"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.474, 51.897]
+      },
+      "properties": {
+        "type": "flood",
+        "severity": "severe",
+        "description": "River overflow in Limerick",
+        "date": "22/12/2023"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-9.052, 53.271]
+      },
+      "properties": {
+        "type": "fire",
+        "severity": "medium",
+        "description": "Grass fire in County Kerry",
+        "date": "23/12/2023"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-10.000, 54.000]
+      },
+      "properties": {
+        "type": "storm",
+        "severity": "severe",
+        "description": "Severe storm hitting the coast",
+        "date": "24/12/2023"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-8.800, 51.500]
+      },
+      "properties": {
+        "type": "storm",
+        "severity": "moderate",
+        "description": "Moderate storm approaching",
+        "date": "25/12/2023"
+      }
+    }
+  ]
+}

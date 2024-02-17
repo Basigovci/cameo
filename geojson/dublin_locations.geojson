@@ -1,0 +1,49 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-6.267, 53.344]
+      },
+      "properties": {
+        "name": "Trinity College Dublin",
+        "description": "Ireland's oldest university"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-6.260, 53.349]
+      },
+      "properties": {
+        "name": "Temple Bar",
+        "description": "Vibrant cultural quarter"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-6.259, 53.345]
+      },
+      "properties": {
+        "name": "Dublin Castle",
+        "description": "Historic castle complex"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-6.276, 53.349]
+      },
+      "properties": {
+        "name": "Phoenix Park",
+        "description": "Europe's largest enclosed urban park"
+      }
+    }
+  ]
+}
