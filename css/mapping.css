@@ -2,3 +2,47 @@
                     width: 1240px;
                     height: 580px;
                 }
+#panelAdvancedSearch {
+      width:350px;
+      position: absolute;
+      top: 110px;
+      right:10px;
+      background-color: none;
+      padding: 5px;
+      border: none;
+      z-index: 1000;
+    }
+
+#savePanel {
+      width:200px;
+      position: absolute;
+      top: 110px;
+      right:10px;
+      background-color: none;
+      padding: 5px;
+      border: none;
+      z-index: 1000;
+    }
+
+ /* CSS for hover effect */
+.nav-link:hover {
+    background-color: lightgray; /* Change to the desired background color */
+    color: blue; /* Change to the desired text color */
+}
+
+/* CSS for selected item */
+.nav-link.selected {
+    background-color: lightblue; /* Change to the desired background color for selected item */
+    color: red; /* Change to the desired text color for selected item */
+}
+
+#panelQueryResults {
+      width:620px;
+      position: absolute;
+      top: 110px;
+      right:10px;
+      background-color: none;
+      padding: 5px;
+      border: none;
+      z-index: 1000;
+    }

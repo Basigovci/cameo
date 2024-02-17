@@ -1,0 +1,36 @@
+.timeline {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .timeline-item {
+            padding: 10px 0; /* Adjust padding to remove extra space */
+            position: relative;
+            display: flex;
+            align-items: flex-start; /* Align items to the top */
+        }
+        .timeline-item img {
+            width: 22px;
+            height: 22px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .timeline-item-content {
+            margin: 0;
+            padding: 0;
+        }
+        .timeline-item-content p {
+            margin: 0; /* Remove default margin for paragraphs */
+        }
+        .timeline-item-content .small {
+            font-size: 80%; /* Reduce font size for small text */
+        }
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            top: 10px; /* Adjust to center vertically */
+            left: 11px; /* Adjust to connect with image */
+            width: 2px; /* Width of the line */
+            height: calc(100% - 10px); /* Height of the line */
+            background-color: #ccc; /* Color of the line */
+        }
