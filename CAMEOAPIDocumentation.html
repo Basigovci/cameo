@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/microservices.css"> <!-- Link to your CSS file -->
+    <title>CAMEO API Documentation</title>
+</head>
+<body>
+<div class="container">
+<img src="img/service.png" alt="Image" width="88" height="60" class="mr-2">
+  <h4 style="display: inline-block;">CAMEO API Documentation - Final Release</h4>
+  <div class="row">
+    <!-- Rest of your content here -->
+    <div class="col-md-3">
+      <!-- Card 1: Making a Request -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h5 class="my-0 font-weight-normal">Request Body</h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>
+            <div class="form-outline">
+            <textarea class="form-control" id="jsonBody" name="jsonBody" rows="10">
+{
+    "constellation":"SENTINEL-2",
+    "start_datetime":"2023-01-02T00:00:00Z",
+    "end_datetime": "2023-02-01T23:59:00Z",
+    "username": "cameo",
+    "password": "cameo",
+    "online_search": "False",
+    "limit": 1,
+    "eo:cloud_cover": 10,
+    "processing:level": "LEVEL1",
+    "geometry": {
+        "coordinates": [
+            [
+                [
+                    -6.066376,
+                    52.314038
+                ],
+                [
+                    -6.129791,
+                    51.328067
+                ],
+                [
+                    -4.557892,
+                    51.278925
+                ],
+                [
+                    -4.460022,
+                    52.263137
+                ],
+                [
+                    -6.066376,
+                    52.314038
+                ]
+            ]
+        ],
+        "type": "Polygon"
+    }
+}
+    </textarea>
+            <label class="form-label" for="jsonBody">You must provide the request body in JSON format</label>
+            </div>
+            </li>
+          </ul>
+          <hr>
+             <button type="button" class="btn btn-lg btn-block btn-primary" onclick="generateFormFields(JSON.parse(document.getElementById('jsonBody').value))">Get Parameters</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <!-- Card 2: Set parameters -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h5 class="my-0 font-weight-normal">Set Parameters</h5>
+        </div>
+        <div class="card-body">
+
+         <form id="jsonForm">
+          <ul class="list-unstyled mt-3 mb-4" id="formFieldsList"></ul>
+          </form>
+           <hr>
+         <button type="button" class="btn btn-lg btn-block btn-danger" onclick="sendCAMEOAPI()" id="serviceButton">
+  <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" id="serviceSpinner" style="display: none;"></span>
+  <span id="serviceButtonText">Run Service</span>
+</button>
+
+
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="col">
+      <!-- Card 3: Visualization and Exploration -->
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h5 class="my-0 font-weight-normal">API response</h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>
+              <div id="responseTable"></div>
+            </li>
+          </ul>
+
+          <hr>
+          <button type="button" class="btn btn-lg btn-block btn-info" onclick="SavetoBucket()">Save to Bucket</button>
+          <button type="button" class="btn btn-lg btn-block btn-secondary" onclick="DownloadJSON()" style="margin-top: 10px;">Download JSON</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function sendCAMEOAPI() {
+  // Get the JSON body from the textarea
+  const jsonBody = document.getElementById('jsonBody').value;
+
+  // Get the button, spinner, and text elements for the service button
+  const serviceButton = document.getElementById('serviceButton');
+  const serviceSpinner = document.getElementById('serviceSpinner');
+  const serviceButtonText = document.getElementById('serviceButtonText');
+
+  // Disable the service button, show the spinner, and change the text to "Running"
+  serviceButton.disabled = true;
+  serviceSpinner.style.display = 'inline-block';
+  serviceButtonText.textContent = 'Running';
+
+  // Perform your fetch or any asynchronous operation
+  fetch('https://10.11.12.150:31010/cameo/search', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: jsonBody,
+    agent: new (require('https').Agent)({ rejectUnauthorized: false })
+})
+  .then(response => response.json())
+  .then(data => {
+    // Handle the response data as needed
+    weatherData = data; // Assign the data to the weatherData variable
+    APIresponse(data);
+  })
+  .catch(error => {
+    // Handle errors
+    console.error('Error fetching data:', error);
+    alert('Error fetching data. See console for details.');
+  })
+  .finally(() => {
+    // Re-enable the service button, hide the spinner, and change the text back to "Run Service"
+    serviceButton.disabled = false;
+    serviceSpinner.style.display = 'none';
+    serviceButtonText.textContent = 'Run Service';
+  });
+}
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="js/microservices.js"></script> <!-- Link to your JavaScript file -->
+</body>
+</html>

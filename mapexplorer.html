@@ -1,2 +1,136 @@
 <br>
-    <div id="map"></div>
+<div id="map"></div>
+
+<!-- panel for panelAdvancedSearch -->
+<div class="container mt-5">
+    <div class="accordion" id="panelAdvancedSearch">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                        aria-controls="panelsStayOpen-collapseOne">
+                    Search parameters (Mandatory):
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                    <div class="mb-3">
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" class="form-control" id="productName" placeholder="Product name">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="StartingDate" class="form-label">Start Date:</label>
+                                <input type="date" class="form-control" id="StartingDate" placeholder="Start Date">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="EndingDate" class="form-label">End Date:</label>
+                                <input type="date" class="form-control" id="EndingDate" placeholder="End Date">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                        aria-controls="panelsStayOpen-collapseTwo">
+                    Search parameters (Optional):
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                <div class="accordion-body" style="max-height: 200px; overflow-y: auto;">
+                    <div class="mb-4">
+                        <label class="form-label" for="sentinal1">Data Sources:</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="1" id="sentinal1">
+                            <label class="form-check-label" for="sentinal1">SENTINEL-1</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="2" id="sentinal2">
+                            <label class="form-check-label" for="sentinal2">SENTINEL-2</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="3" id="sentinal3">
+                            <label class="form-check-label" for="sentinal3">SENTINEL-3</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="4" id="sentinal5P">
+                            <label class="form-check-label" for="sentinal5P">SENTINEL-5P</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="5" id="sentinal6">
+                            <label class="form-check-label" for="sentinal6">SENTINEL-6</label>
+                        </div>
+                        <label class="form-label" for="customRange3">Max. cloud coverage (<span
+                                id="cloudCoverageValue">0</span>%):</label>
+                        <input type="range" class="form-range" min="0" max="100" step="5" id="customRange3">
+                        <label class="form-label" for="resolutionSelect">Resolution:</label>
+                        <select class="form-select" aria-label="Resolution" id="resolutionSelect">
+                            <option value="1">High</option>
+                            <option value="2">Medium</option>
+                            <option value="3">Low</option>
+                        </select>
+                        <label class="form-label" for="processingLevelSelect">Processing level:</label>
+                        <select class="form-select" aria-label="Processing level" id="processingLevelSelect">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        </select>
+                        <label class="form-label" for="processingTypeData">Type of Data:</label>
+                        <select class="form-select" aria-label="Type of Data" id="processingTypeData">
+                            <option value="0">Images</option>
+                            <option value="1">Shape file</option>
+                            <option value="2">Digital terrain models</option>
+                        </select>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label" for="startTime">Start Time:</label>
+                            <input type="time" class="form-control" id="startTime">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label" for="endTime">End Time:</label>
+                            <input type="time" class="form-control" id="endTime">
+                        </div>
+                    </div>
+                    <textarea id="textareaJSON" class="form-control" rows="3" style="display: none;"></textarea>
+                    <button type="button" class="btn btn-warning" onclick="loadJSON()"> Upload AOI</button>
+                    <span class="badge rounded-pill text-bg-info" id="FileInfo"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Save Panel (Initially Hidden) -->
+<div class="card mt-3 small-card" id="savePanel" style="display: none;">
+    <div class="card-body">
+        <form>
+            <div class="form-group">
+                <input type="text" class="form-control" id="titleInput" placeholder="Enter title">
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" id="descriptionInput" rows="2"
+                          placeholder="Enter description"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" onclick="closeSavePanel()">Save</button>
+        </form>
+    </div>
+</div>
+
+
+<div class="card" id="panelQueryResults">
+    <div class="card-header">
+        Showing <span id="currentRows"></span> results of <span id="totalRows"></span> rows
+    </div>
+    <div class="card-body" id="dataContainer" style="max-height: 300px; overflow-y: auto;">
+        <!-- Cards will be dynamically generated here -->
+    </div>
+    <button type="button" class="btn btn-success" style="margin-left: 10px; margin-right: 10px; margin-bottom: 10px;">Load more</button>
+</div>
