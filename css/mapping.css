@@ -46,3 +46,13 @@
       border: none;
       z-index: 1000;
     }
+
+#centralAlert {
+      width:800px;
+      position: absolute;
+      top: 120px;
+      left:80px;
+      background-color: none;
+      padding: 5px;
+      z-index: 1000;
+    }
