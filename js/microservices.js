@@ -87,9 +87,7 @@
   let weatherData;
 
   function SavetoBucket() {
-    // Perform the necessary actions to save to the Bucket
-    // For now, let's just display an alert
-    alert("API response has been successfully saved to the Bucket!!");
+     movetoMyBucket('Response', 'json');
   }
 
   // Function to dynamically generate form fields based on a JSON object
@@ -196,7 +194,7 @@ function DownloadJSON() {
     // Create a download link and trigger the download
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
-    link.download = 'weatherData.json';
+    link.download = 'Response.json';
     document.body.appendChild(link); // Append the link to the document
     link.click(); // Programmatically click the link
     document.body.removeChild(link); // Remove the link from the document after the download

@@ -39,7 +39,7 @@ var searchPanelControl = L.Control.extend({
         </button>
         <img src="img/listenlayer1.png" alt="Listen Icon" width="32" height="32" id="listenIcon" style="cursor: pointer;">
 <!-- Include the saveIcon with an onclick attribute -->
-<img src="img/bookmark.png" alt="Save Icon" width="32" height="32" id="saveIcon" style="cursor: pointer;" onclick="toggleSavePanel()">
+<img src="img/bookmark.png" alt="Save Icon" width="32" height="32" id="saveIcon" style="cursor: pointer;" onclick="toggleSavePanel(event)">
     </div>
     <!-- Second Row -->
     <div class="col-12 d-flex justify-content-end mt-1 mr-1">
@@ -99,6 +99,12 @@ panelAdvancedSearch.style.display = 'none'; // Initially hide the panel
 
 var panelQueryResults = document.getElementById('panelQueryResults');
 panelQueryResults.style.display = 'none'; // Initially hide the panel
+
+var panelcentralAlert = document.getElementById('centralAlert');
+centralAlert.style.display = 'none'; // Initially hide the panel
+
+document.getElementById('EndingDate').valueAsDate = new Date();
+document.getElementById('StartingDate').valueAsDate = new Date();
 
 // Call the function to set up the range input functionality
 setupCloudCoverageRange();
@@ -168,17 +174,20 @@ function drawMapControl() {
 }
 
 function toggleSavePanel() {
-        $('#savePanel').toggle();
-        panelAdvancedSearch.style.display = 'none';
-        panelQueryResults.style.display = 'none';
-        var checkbox = document.getElementById('flexSwitchCheckDefault');
-         // Uncheck the checkbox (switch off)
-         checkbox.checked = false;
+    $('#savePanel').toggle();
+    panelAdvancedSearch.style.display = 'none';
+    panelQueryResults.style.display = 'none';
+    var checkbox = document.getElementById('flexSwitchCheckDefault');
+    // Uncheck the checkbox (switch off)
+    checkbox.checked = false;
 
-    }
- function closeSavePanel() {
-    document.getElementById('savePanel').style.display = 'none';
-  }
+}
+
+function closeSavePanel() {
+    $('#savePanel').hide();
+     sendAlertMessage("Your recent activity has been saved.");
+}
+
 
 
  // JavaScript to manage the selected state
@@ -240,8 +249,6 @@ function togglePanelVisibility() {
         panelAdvancedSearch.style.display = 'block';
         panelQueryResults.style.display = "none";
         savePanel.style.display = "none";
-        document.getElementById('EndingDate').valueAsDate = new Date();
-        document.getElementById('StartingDate').valueAsDate = new Date();
        // var panelQueryResults = document.getElementById("panelQueryResults");
        // panelQueryResults.style.display = "none";
        // var panel = document.getElementById('panelShowImage');
@@ -546,19 +553,14 @@ const geoFootprintJSON = JSON.parse(geoFootprintAttribute);
 function workplaceImageClick() {
     const geoNameAttribute = this.getAttribute('data-name');
     const shortenedName = geoNameAttribute.slice(0, 8) + '...';
+    sendAlertMessage("Success: " + geoNameAttribute + " added to Bucket.");
     movetoMyBucket(shortenedName, 'img');
 }
 
 function downloadImageClick() {
     const dataId = this.getAttribute('data-id');
-    const access_token = "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJYVUh3VWZKaHVDVWo0X3k4ZF8xM0hxWXBYMFdwdDd2anhob2FPLUxzREZFIn0.eyJleHAiOjE3MDcxNjg2NTcsImlhdCI6MTcwNzE2ODA1NywianRpIjoiZWRmYTQ3MGMtMTA3Yy00Yjg2LWE3MzctZjUzMmEyMjhlMGQzIiwiaXNzIjoiaHR0cHM6Ly9pZGVudGl0eS5kYXRhc3BhY2UuY29wZXJuaWN1cy5ldS9hdXRoL3JlYWxtcy9DRFNFIiwiYXVkIjpbIkNMT1VERkVSUk9fUFVCTElDIiwiYWNjb3VudCJdLCJzdWIiOiJhMjAyODA1NC03YzgzLTRhM2QtYmM1YS1iYWFiZmZkZDJjNDEiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjZHNlLXB1YmxpYyIsInNlc3Npb25fc3RhdGUiOiIxMzQxMjBhNi0xNmQzLTRkOGEtODBlZi0wMmFlYjg0M2IzYjQiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cHM6Ly9sb2NhbGhvc3Q6NDIwMCIsIioiLCJodHRwczovL3dvcmtzcGFjZS5zdGFnaW5nLWNkc2UtZGF0YS1leHBsb3Jlci5hcHBzLnN0YWdpbmcuaW50cmEuY2xvdWRmZXJyby5jb20iXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLWNkYXMiLCJjb3Blcm5pY3VzLWdlbmVyYWwiXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6IkFVRElFTkNFX1BVQkxJQyBvcGVuaWQgZW1haWwgcHJvZmlsZSBvbmRlbWFuZF9wcm9jZXNzaW5nIHVzZXItY29udGV4dCIsInNpZCI6IjEzNDEyMGE2LTE2ZDMtNGQ4YS04MGVmLTAyYWViODQzYjNiNCIsImdyb3VwX21lbWJlcnNoaXAiOlsiL2FjY2Vzc19ncm91cHMvdXNlcl90eXBvbG9neS9jb3Blcm5pY3VzX2dlbmVyYWwiLCIvb3JnYW5pemF0aW9ucy9kZWZhdWx0LWEyMDI4MDU0LTdjODMtNGEzZC1iYzVhLWJhYWJmZmRkMmM0MS9yZWd1bGFyX3VzZXIiXSwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJBc21pciBCdXRrb3ZpYyIsIm9yZ2FuaXphdGlvbnMiOlsiZGVmYXVsdC1hMjAyODA1NC03YzgzLTRhM2QtYmM1YS1iYWFiZmZkZDJjNDEiXSwidXNlcl9jb250ZXh0X2lkIjoiMTQzNjhhZjktZjlhMi00MDdkLWIzZDEtMWVjMzRjNzMyNTQ4IiwiY29udGV4dF9yb2xlcyI6e30sImNvbnRleHRfZ3JvdXBzIjpbIi9hY2Nlc3NfZ3JvdXBzL3VzZXJfdHlwb2xvZ3kvY29wZXJuaWN1c19nZW5lcmFsLyIsIi9vcmdhbml6YXRpb25zL2RlZmF1bHQtYTIwMjgwNTQtN2M4My00YTNkLWJjNWEtYmFhYmZmZGQyYzQxL3JlZ3VsYXJfdXNlci8iXSwicHJlZmVycmVkX3VzZXJuYW1lIjoiYWJ1dGtvdmljQGhvdG1haWwuY29tIiwiZ2l2ZW5fbmFtZSI6IkFzbWlyIiwiZmFtaWx5X25hbWUiOiJCdXRrb3ZpYyIsInVzZXJfY29udGV4dCI6ImRlZmF1bHQtYTIwMjgwNTQtN2M4My00YTNkLWJjNWEtYmFhYmZmZGQyYzQxIiwiZW1haWwiOiJhYnV0a292aWNAaG90bWFpbC5jb20ifQ.IIdU9hyukXGWGK45s2DYi9G6IJBZdqFtwzrNkNRB0L5aEBv4fRxUm4gZTz-B5eM5j-p4kexSxtklk8L2L8DIsQrQxX-pflJ9q6yRNl3iDL_-IgRgWtDQ5jksqXLDbCzMezEUARHoxkb4WdCOfvQJg2whthwh_8lcnzmcdgKVrdBiOA8sVKzTaRddUyyO0ru5iXXNPwkGK4CYqXT0_ZsZr4sJZENVnh5s_eunBTs6_qmxXZz03Z41ubEdwi_Vz9FH7KeDokqgWu4boh5A5DeB5cwL5iju27iPAWgriuR1ha7VaDl5mXO8OJSz7QAJApj1VpWxsQY63KjzNVO9GWoWDQ"
-
-    // Confirm the download with the user
-    const confirmDownload = confirm("Do you want to download the file?");
-    if (!confirmDownload) {
-        return; // Exit the function if the user cancels the download
-    }
-
+    const access_token = "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJYVUh3VWZKaHVDVWo0X3k4ZF8xM0hxWXBYMFdwdDd2anhob2FPLUxzREZFIn0.eyJleHAiOjE3MDg0MjY5MTksImlhdCI6MTcwODQyNjMxOSwianRpIjoiOWY0ZjhkNjMtOTkyMy00NWY1LTllNWYtOWNmZmNhMzY1Yjg3IiwiaXNzIjoiaHR0cHM6Ly9pZGVudGl0eS5kYXRhc3BhY2UuY29wZXJuaWN1cy5ldS9hdXRoL3JlYWxtcy9DRFNFIiwiYXVkIjpbIkNMT1VERkVSUk9fUFVCTElDIiwiYWNjb3VudCJdLCJzdWIiOiJhMjAyODA1NC03YzgzLTRhM2QtYmM1YS1iYWFiZmZkZDJjNDEiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjZHNlLXB1YmxpYyIsInNlc3Npb25fc3RhdGUiOiI1MWVkOTBiZi04YjU5LTQwNDgtOTVkNi1iZDEzZjdhOTM5M2EiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cHM6Ly9sb2NhbGhvc3Q6NDIwMCIsIioiLCJodHRwczovL3dvcmtzcGFjZS5zdGFnaW5nLWNkc2UtZGF0YS1leHBsb3Jlci5hcHBzLnN0YWdpbmcuaW50cmEuY2xvdWRmZXJyby5jb20iXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwidW1hX2F1dGhvcml6YXRpb24iLCJkZWZhdWx0LXJvbGVzLWNkYXMiLCJjb3Blcm5pY3VzLWdlbmVyYWwiXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6IkFVRElFTkNFX1BVQkxJQyBvcGVuaWQgZW1haWwgcHJvZmlsZSBvbmRlbWFuZF9wcm9jZXNzaW5nIHVzZXItY29udGV4dCIsInNpZCI6IjUxZWQ5MGJmLThiNTktNDA0OC05NWQ2LWJkMTNmN2E5MzkzYSIsImdyb3VwX21lbWJlcnNoaXAiOlsiL2FjY2Vzc19ncm91cHMvdXNlcl90eXBvbG9neS9jb3Blcm5pY3VzX2dlbmVyYWwiLCIvb3JnYW5pemF0aW9ucy9kZWZhdWx0LWEyMDI4MDU0LTdjODMtNGEzZC1iYzVhLWJhYWJmZmRkMmM0MS9yZWd1bGFyX3VzZXIiXSwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJBc21pciBCdXRrb3ZpYyIsIm9yZ2FuaXphdGlvbnMiOlsiZGVmYXVsdC1hMjAyODA1NC03YzgzLTRhM2QtYmM1YS1iYWFiZmZkZDJjNDEiXSwidXNlcl9jb250ZXh0X2lkIjoiMTQzNjhhZjktZjlhMi00MDdkLWIzZDEtMWVjMzRjNzMyNTQ4IiwiY29udGV4dF9yb2xlcyI6e30sImNvbnRleHRfZ3JvdXBzIjpbIi9hY2Nlc3NfZ3JvdXBzL3VzZXJfdHlwb2xvZ3kvY29wZXJuaWN1c19nZW5lcmFsLyIsIi9vcmdhbml6YXRpb25zL2RlZmF1bHQtYTIwMjgwNTQtN2M4My00YTNkLWJjNWEtYmFhYmZmZGQyYzQxL3JlZ3VsYXJfdXNlci8iXSwicHJlZmVycmVkX3VzZXJuYW1lIjoiYWJ1dGtvdmljQGhvdG1haWwuY29tIiwiZ2l2ZW5fbmFtZSI6IkFzbWlyIiwiZmFtaWx5X25hbWUiOiJCdXRrb3ZpYyIsInVzZXJfY29udGV4dCI6ImRlZmF1bHQtYTIwMjgwNTQtN2M4My00YTNkLWJjNWEtYmFhYmZmZGQyYzQxIiwiZW1haWwiOiJhYnV0a292aWNAaG90bWFpbC5jb20ifQ.SqwgN0VWmYqbmWraDKZi5lVXDWDXANB3u902cpWCTs1yd7PzLk-fyH9RDjuot1Qt26XDAtSmnF7sH9EyFGasiiFoXDcr1-6nClRO2a1CMJFMIdrZXf0JtvFgGk-PTwTMPS15NXTOZnO2Ac6EIEhVmV8b1pTpBXnhKdCuu65nUJH0ssgDbk30no0JROrmQAySnPAgPKs60zfnn6Spbjd_fRs3rfmLI_xZWpnGObqut_V9Vkxs9zu9ZL91Uq_8yqVqblzZEQZtXuNgUhhMx_hweEUCtiQYkFRLK8bKnGfYI5H76nRkOObZJUUVFnlQsnXA7lTrM2TPMuM5LQ7J79ny5w";
+    sendAlertMessage("Download started Id=" + dataId);
     const url = `https://zipper.dataspace.copernicus.eu/odata/v1/Products(${dataId})/$value`;
     const headers = {
         "Authorization": `Bearer ${access_token}`
@@ -580,7 +582,7 @@ function downloadImageClick() {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'product.zip';
+        a.download = `product_${dataId}.zip`;
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
@@ -589,6 +591,18 @@ function downloadImageClick() {
         console.error('There was a problem with your fetch operation:', error);
     });
 }
+
+
+function sendAlertMessage(message) {
+        const centralAlertDiv = document.getElementById('centralAlert');
+        centralAlertDiv.innerText = message; // Update the content of the alert div with the message
+        centralAlertDiv.style.display = 'block'; // Display the alert div
+        // Set a timer to hide the alert after 3 seconds (3000 milliseconds)
+        setTimeout(function() {
+            centralAlertDiv.style.display = 'none'; // Hide the alert div after 3 seconds
+        }, 3000);
+    }
+
 
 ////////////////////////////////////////////////////////////////////////////
 
